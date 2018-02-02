@@ -10107,7 +10107,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         'p',
                         null,
                         ' ',
-                        _react2.default.createElement('input', { type: 'checkbox', checked: this.props.check, onChange: this.handleCheck }),
+                        _react2.default.createElement('input', { type: 'checkbox', checked: this.props.check, onChange: this.props.handleCheck }),
                         'Only show kitties that likes kids'
                     )
                 );
@@ -10129,17 +10129,26 @@ document.addEventListener('DOMContentLoaded', function () {
         _createClass(CatTable, [{
             key: 'render',
             value: function render() {
+                var _this3 = this;
+
                 var rows = [];
                 var lastCategory = null;
 
                 this.props.kitties.forEach(function (kitty, index) {
+                    var name = kitty.name.toLowerCase();
+                    var text = _this3.props.text.toLowerCase();
 
-                    if (lastCategory !== kitty.category) {
-                        rows.push(_react2.default.createElement(CatCategoryRow, { category: kitty.category, key: index }));
+                    if (_this3.props.check && !kitty.likesKids) {
+                        return null;
+                    } else if (name.indexOf(text) !== -1) {
+
+                        if (lastCategory !== kitty.category) {
+                            rows.push(_react2.default.createElement(CatCategoryRow, { category: kitty.category, key: index }));
+                        }
+
+                        rows.push(_react2.default.createElement(CatRow, { kitty: kitty, key: kitty.name }));
+                        lastCategory = kitty.category;
                     }
-
-                    rows.push(_react2.default.createElement(CatRow, { kitty: kitty, key: kitty.name }));
-                    lastCategory = kitty.category;
                 });
 
                 return _react2.default.createElement(
@@ -10247,7 +10256,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function App() {
             var _ref;
 
-            var _temp, _this5, _ret;
+            var _temp, _this6, _ret;
 
             _classCallCheck(this, App);
 
@@ -10255,14 +10264,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 args[_key] = arguments[_key];
             }
 
-            return _ret = (_temp = (_this5 = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this5), _this5.state = {
+            return _ret = (_temp = (_this6 = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this6), _this6.state = {
                 check: false,
                 text: ''
-            }, _this5.handleText = function (ev) {
-                _this5.setState({ text: ev.target.value });
-            }, _this5.handleCheck = function (ev) {
-                _this5.setState({ check: ev.target.checked });
-            }, _temp), _possibleConstructorReturn(_this5, _ret);
+            }, _this6.handleText = function (ev) {
+                _this6.setState({ text: ev.target.value });
+            }, _this6.handleCheck = function (ev) {
+                _this6.setState({ check: ev.target.checked });
+            }, _temp), _possibleConstructorReturn(_this6, _ret);
         }
 
         _createClass(App, [{
@@ -10274,11 +10283,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     null,
                     _react2.default.createElement(SearchBar, { check: this.state.check,
                         text: this.state.text,
-                        handleText: this.handleText }),
+                        handleText: this.handleText,
+                        handleCheck: this.handleCheck }),
                     _react2.default.createElement(CatTable, { kitties: this.props.kitties,
                         check: this.state.check,
-                        text: this.state.text,
-                        handleCheck: this.handleText })
+                        text: this.state.text })
                 );
             }
         }]);

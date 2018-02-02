@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
             return (
                 <form>
                     <input type="text" placeholder="Search..." value={this.props.text} onChange={this.props.handleText} />
-                    <p> <input type="checkbox" checked={this.props.check} onChange={this.handleCheck} />
+                    <p> <input type="checkbox" checked={this.props.check} onChange={this.props.handleCheck} />
                         Only show kitties that likes kids
                     </p>
                 </form>)
@@ -32,13 +32,21 @@ document.addEventListener('DOMContentLoaded', function(){
             let lastCategory = null;
 
             this.props.kitties.forEach( (kitty, index) => {
+                const name = kitty.name.toLowerCase();
+                const text = this.props.text.toLowerCase();
 
-                if(lastCategory !== kitty.category){
-                   rows.push(<CatCategoryRow category={kitty.category} key={index}/>)
+                if(this.props.check && !kitty.likesKids){
+                    return null;
                 }
+                else if(name.indexOf(text) !== -1){
 
-                rows.push(<CatRow kitty={kitty} key={kitty.name} />);
-                lastCategory = kitty.category;
+                    if(lastCategory !== kitty.category){
+                        rows.push(<CatCategoryRow category={kitty.category} key={index}/>)
+                    }
+
+                    rows.push(<CatRow kitty={kitty} key={kitty.name} />);
+                    lastCategory = kitty.category;
+                }
             });
 
             return (
@@ -88,11 +96,11 @@ document.addEventListener('DOMContentLoaded', function(){
                 <div>
                     <SearchBar check={this.state.check}
                                text={this.state.text}
-                               handleText={this.handleText}/>
+                               handleText={this.handleText}
+                               handleCheck={this.handleCheck}/>
                     <CatTable kitties={this.props.kitties}
                               check={this.state.check}
-                              text={this.state.text}
-                              handleCheck={this.handleText}/>
+                              text={this.state.text}/>
                 </div>)
         }
     }
