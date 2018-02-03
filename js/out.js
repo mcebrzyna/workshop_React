@@ -10104,11 +10104,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     null,
                     _react2.default.createElement('input', { type: 'text', placeholder: 'Search...', value: this.props.text, onChange: this.props.handleText }),
                     _react2.default.createElement(
-                        'p',
-                        null,
-                        ' ',
+                        'label',
+                        { className: 'control control-checkbox' },
+                        'Only show kitties that likes kids',
                         _react2.default.createElement('input', { type: 'checkbox', checked: this.props.check, onChange: this.props.handleCheck }),
-                        'Only show kitties that likes kids'
+                        _react2.default.createElement('div', { className: 'control_indicator' })
                     )
                 );
             }
@@ -10198,7 +10198,7 @@ document.addEventListener('DOMContentLoaded', function () {
             value: function render() {
                 var name = this.props.kitty.likesKids ? this.props.kitty.name : _react2.default.createElement(
                     'span',
-                    { style: { color: 'red' } },
+                    { style: { color: '#ff4f52' } },
                     ' ',
                     this.props.kitty.name,
                     ' '
@@ -10213,7 +10213,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     ),
                     _react2.default.createElement(
                         'td',
-                        null,
+                        { className: 'age' },
                         this.props.kitty.age
                     )
                 );
@@ -10240,7 +10240,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     null,
                     _react2.default.createElement(
                         'th',
-                        { colSpan: '2' },
+                        { className: 'category', colSpan: '2' },
                         this.props.category
                     )
                 );
@@ -10281,6 +10281,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 return _react2.default.createElement(
                     'div',
                     null,
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Find your kitty...'
+                    ),
                     _react2.default.createElement(SearchBar, { check: this.state.check,
                         text: this.state.text,
                         handleText: this.handleText,

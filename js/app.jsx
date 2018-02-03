@@ -19,9 +19,11 @@ document.addEventListener('DOMContentLoaded', function(){
             return (
                 <form>
                     <input type="text" placeholder="Search..." value={this.props.text} onChange={this.props.handleText} />
-                    <p> <input type="checkbox" checked={this.props.check} onChange={this.props.handleCheck} />
+                    <label className="control control-checkbox">
                         Only show kitties that likes kids
-                    </p>
+                        <input type="checkbox" checked={this.props.check} onChange={this.props.handleCheck} />
+                        <div className="control_indicator"/>
+                    </label>
                 </form>)
         }
     }
@@ -65,14 +67,14 @@ document.addEventListener('DOMContentLoaded', function(){
     class CatRow extends React.Component {
         render() {
             const name = this.props.kitty.likesKids ?
-                this.props.kitty.name : <span style={{color: 'red'}}> {this.props.kitty.name} </span>;
-            return <tr><td>{name}</td><td>{this.props.kitty.age}</td></tr>;
+                this.props.kitty.name : <span style={{color: '#ff4f52'}}> {this.props.kitty.name} </span>;
+            return <tr><td>{name}</td><td className='age'>{this.props.kitty.age}</td></tr>;
         }
     }
 
     class CatCategoryRow extends React.Component {
         render() {
-            return <tr><th colSpan="2">{this.props.category}</th></tr>;
+            return <tr><th className='category' colSpan="2">{this.props.category}</th></tr>;
         }
     }
 
@@ -94,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
             return(
                 <div>
+                    <h1>Find your kitty...</h1>
                     <SearchBar check={this.state.check}
                                text={this.state.text}
                                handleText={this.handleText}
